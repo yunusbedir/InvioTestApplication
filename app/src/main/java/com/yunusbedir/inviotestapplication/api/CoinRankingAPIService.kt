@@ -1,11 +1,10 @@
 package com.yunusbedir.inviotestapplication.api
 
-import com.yunusbedir.inviotestapplication.MainActivity.Companion.PACKAGE_NAME
+import com.yunusbedir.inviotestapplication.ui.MainActivity.Companion.PACKAGE_NAME
 import com.yunusbedir.inviotestapplication.model.BaseModel
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Header
-import retrofit2.http.Headers
 import retrofit2.http.Query
 
 

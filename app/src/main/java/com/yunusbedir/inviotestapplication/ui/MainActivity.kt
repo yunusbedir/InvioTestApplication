@@ -1,9 +1,10 @@
-package com.yunusbedir.inviotestapplication
+package com.yunusbedir.inviotestapplication.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import com.yunusbedir.inviotestapplication.R
 import com.yunusbedir.inviotestapplication.api.CoinRankinAPIClient
 import com.yunusbedir.inviotestapplication.api.CoinRankingAPIService
 import com.yunusbedir.inviotestapplication.model.BaseModel
