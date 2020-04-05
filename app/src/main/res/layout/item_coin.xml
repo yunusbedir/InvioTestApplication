@@ -16,14 +16,14 @@
         android:layout_margin="8dp">
 
         <LinearLayout
-            app:layout_constraintEnd_toStartOf="@id/ll"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/tvPrice"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
                 android:id="@+id/imgIcon"
@@ -34,6 +34,7 @@
                 android:src="@mipmap/ic_launcher" />
 
             <LinearLayout
+                android:layout_marginStart="8dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
@@ -76,33 +77,18 @@
 
             <com.github.mikephil.charting.charts.LineChart
                 android:id="@+id/lineChart"
+                android:layout_marginHorizontal="8dp"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                />
+                android:layout_height="match_parent" />
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/ll"
+        <TextView
+            android:id="@+id/tvPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_margin="8dp"
             app:layout_constraintEnd_toEndOf="parent"
-            android:orientation="vertical">
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/tvPrice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="$1.11111" />
-
-            <TextView
-                android:id="@+id/tvMarketCap"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="4000000" />
-
-
-        </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

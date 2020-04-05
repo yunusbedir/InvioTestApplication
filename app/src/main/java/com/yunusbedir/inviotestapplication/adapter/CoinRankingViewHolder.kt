@@ -1,5 +1,6 @@
 package com.yunusbedir.inviotestapplication.adapter
 
+import android.annotation.SuppressLint
 import android.graphics.Color
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
@@ -21,6 +22,7 @@ import kotlinx.android.synthetic.main.item_coin.view.*
  */
 class CoinRankingViewHolder(var view: View) : RecyclerView.ViewHolder(view) {
 
+    @SuppressLint("SetTextI18n")
     fun bind(coin: Coins, onClick: () -> Unit) {
         view.apply {
             tvName.text = coin.name
@@ -29,12 +31,13 @@ class CoinRankingViewHolder(var view: View) : RecyclerView.ViewHolder(view) {
             if (coin.change > 0) {
                 viewChange.setBackgroundResource(R.drawable.ic_arrow_up)
                 tvChange.text = coin.change.toString()
+            } else if (coin.change == 0.0) {
+                tvChange.text = coin.change.toString()
             } else {
                 viewChange.setBackgroundResource(R.drawable.ic_arrow_down)
-                tvChange.text = coin.change.toString().removeRange(0..1)
+                tvChange.text = coin.change.toString().removeRange(0, 1)
             }
-            tvPrice.text = coin.price
-            tvMarketCap.text = coin.marketCap.toString()
+            tvPrice.text = "$" + "%.2f".format(coin.price.toFloat())
 
             SvgLoader.pluck()
                 .with(MainActivity.mActivity)
@@ -58,7 +61,7 @@ class CoinRankingViewHolder(var view: View) : RecyclerView.ViewHolder(view) {
             i++
         }
 
-        val dataSet = LineDataSet(listHistory,"")
+        val dataSet = LineDataSet(listHistory, "")
         val dataSets = ArrayList<ILineDataSet>()
 
         //değerleri gizlemek
@@ -98,9 +101,6 @@ class CoinRankingViewHolder(var view: View) : RecyclerView.ViewHolder(view) {
         lineChart.invalidate()
 
     }
-
-
-
 
 
 }
