@@ -28,69 +28,14 @@
                     android:layout_height="match_parent"
                     android:layout_marginHorizontal="16dp">
 
-                    <ImageView
-                        android:id="@+id/imgIcon"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:layout_marginTop="32dp"
-                        android:src="@mipmap/ic_launcher"
+                    <com.github.mikephil.charting.charts.BarChart
+                        android:id="@+id/barChart"
+                        android:layout_width="match_parent"
+                        android:layout_height="250dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
-
-
-                    <TextView
-                        android:id="@+id/tvName"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="NAME"
-                        android:textSize="22sp"
-                        android:textStyle="bold"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/imgIcon" />
-
-                    <TextView
-                        android:id="@+id/tvSymbol"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="SYMBOL"
-                        android:textSize="18sp"
-                        android:textStyle="bold"
-                        app:layout_constraintStart_toStartOf="@id/tvName"
-                        app:layout_constraintTop_toBottomOf="@id/tvName" />
-
-                    <View
-                        android:id="@+id/viewChange"
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
-                        app:layout_constraintBottom_toBottomOf="@id/tvSymbol"
-                        app:layout_constraintStart_toEndOf="@id/tvSymbol"
-                        app:layout_constraintTop_toTopOf="@id/tvSymbol" />
-
-                    <TextView
-                        android:id="@+id/tvChange"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="0.16"
-                        app:layout_constraintBottom_toBottomOf="@id/viewChange"
-                        app:layout_constraintStart_toEndOf="@id/viewChange"
-                        app:layout_constraintTop_toTopOf="@id/viewChange" />
-
-                    <TextView
-                        app:layout_constraintTop_toBottomOf="@id/imgIcon"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        android:id="@+id/tvPrice"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="$1.11111" />
-
-                    <TextView
-                        app:layout_constraintTop_toBottomOf="@id/tvPrice"
-                        app:layout_constraintEnd_toEndOf="@id/tvPrice"
-                        android:id="@+id/tvMarketCap"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="4000000" />
 
 
                 </androidx.constraintlayout.widget.ConstraintLayout>

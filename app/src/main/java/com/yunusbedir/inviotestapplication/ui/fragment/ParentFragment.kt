@@ -9,6 +9,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.ahmadrosid.svgloader.SvgLoader
+import com.github.mikephil.charting.data.BarData
+import com.github.mikephil.charting.data.BarDataSet
+import com.github.mikephil.charting.data.BarEntry
+import com.github.mikephil.charting.data.Entry
+import com.github.mikephil.charting.highlight.Highlight
+import com.github.mikephil.charting.listener.OnChartValueSelectedListener
 import com.yunusbedir.inviotestapplication.R
 import com.yunusbedir.inviotestapplication.adapter.CoinRankingListAdapter
 import com.yunusbedir.inviotestapplication.api.CoinRankinAPIClient
@@ -46,14 +52,12 @@ class ParentFragment : Fragment() {
 
     private fun listeners() {
         viewPrevious.setOnClickListener {
-            Log.i("asd", tvOffset.text[0].toInt().toString())
             if (offset > 1) {
                 offset--
                 tvOffset.text = offset.toString()
             }
         }
         viewNext.setOnClickListener {
-            Log.i("asd", tvOffset.text[0].toInt().toString())
             if (offset < 4) {
                 offset++
                 tvOffset.text = offset.toString()
@@ -114,27 +118,24 @@ class ParentFragment : Fragment() {
 
 
     private fun setChartCoins(listCoins: List<Coins>) {
-        val maxCoin = listCoins.maxBy {
-            it.price
+        val dataVals = ArrayList<BarEntry>()
+        var i = 0f
+        listCoins.forEach {
+            dataVals.add(BarEntry(i, it.price))
+            i++
         }
-        maxCoin?.let { coin ->
-            tvName.text = coin.name
-            tvSymbol.text = coin.symbol
 
-            if (coin.change > 0) {
-                viewChange.setBackgroundResource(R.drawable.ic_arrow_up)
-                tvChange.text = coin.change.toString()
-            } else {
-                viewChange.setBackgroundResource(R.drawable.ic_arrow_down)
-                tvChange.text = coin.change.toString().removeRange(0..1)
-            }
-            tvPrice.text = coin.price
-            tvMarketCap.text = coin.marketCap.toString()
+        val dataSet1 = BarDataSet(dataVals, "DataSet 1")
+        val barData = BarData()
+        barData.addDataSet(dataSet1)
 
-            SvgLoader.pluck()
-                .with(MainActivity.mActivity)
-                .load(coin.iconUrl, imgIcon)
-        }
+        barChart.data = barData
+        barChart.invalidate()
+
+    }
+
+    private fun BarEntry(index: Float, value: String): BarEntry {
+        return BarEntry(index, value.toFloat())
 
     }
 
