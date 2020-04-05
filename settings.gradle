@@ -1,0 +1,2 @@
+rootProject.name='Invio Test Application'
+include ':app'
