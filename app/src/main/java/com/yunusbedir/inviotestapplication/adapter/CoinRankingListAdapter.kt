@@ -10,7 +10,7 @@ import com.yunusbedir.inviotestapplication.model.Coins
 /**
  * Created by YUNUS BEDİR on 5.04.2020.
  */
-class CoinRankingListAdapter(val list: List<Coins>, var onClickListener: () -> Unit) :
+class CoinRankingListAdapter(val list: List<Coins>, var onClickListener: (position:Int) -> Unit) :
     RecyclerView.Adapter<CoinRankingViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CoinRankingViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_coin, parent, false)
@@ -22,6 +22,8 @@ class CoinRankingListAdapter(val list: List<Coins>, var onClickListener: () -> U
     }
 
     override fun onBindViewHolder(holder: CoinRankingViewHolder, position: Int) {
-        holder.bind(list[position],onClickListener)
+        holder.bind(list[position]){
+            onClickListener(position)
+        }
     }
 }

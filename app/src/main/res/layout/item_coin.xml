@@ -26,6 +26,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
+                android:transitionName="@string/imgIconTransactionName"
                 android:id="@+id/imgIcon"
                 android:layout_width="75dp"
                 android:layout_height="75dp"

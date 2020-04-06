@@ -8,13 +8,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.ahmadrosid.svgloader.SvgLoader
+import androidx.fragment.app.FragmentTransaction
+import androidx.transition.TransitionInflater
+import androidx.transition.TransitionSet
 import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
-import com.github.mikephil.charting.data.Entry
-import com.github.mikephil.charting.highlight.Highlight
-import com.github.mikephil.charting.listener.OnChartValueSelectedListener
 import com.yunusbedir.inviotestapplication.R
 import com.yunusbedir.inviotestapplication.adapter.CoinRankingListAdapter
 import com.yunusbedir.inviotestapplication.api.CoinRankinAPIClient
@@ -23,7 +22,7 @@ import com.yunusbedir.inviotestapplication.model.BaseModel
 import com.yunusbedir.inviotestapplication.model.Coins
 import com.yunusbedir.inviotestapplication.ui.MainActivity
 import kotlinx.android.synthetic.main.fragment_parent.*
-import kotlinx.android.synthetic.main.item_coin.view.*
+import kotlinx.android.synthetic.main.item_coin.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -112,7 +111,10 @@ class ParentFragment : Fragment() {
     }
 
     private fun setRecyclerView(listCoins: List<Coins>) {
-        val adapter = CoinRankingListAdapter(listCoins) {}
+        val adapter = CoinRankingListAdapter(listCoins) {
+            performTransition(listCoins[it])
+            println("click")
+        }
         rcvListCoins.adapter = adapter
     }
 
@@ -137,6 +139,40 @@ class ParentFragment : Fragment() {
     private fun BarEntry(index: Float, value: String): BarEntry {
         return BarEntry(index, value.toFloat())
 
+    }
+
+    private fun performTransition(coin:Coins) {
+
+        val previousFragment: Fragment? =
+            MainActivity.mFragmentManager?.findFragmentById(R.id.fragment_container)
+        val nextFragment: Fragment = CoinDetailFragment(coin)
+        val fragmentTransaction: FragmentTransaction? = MainActivity.mFragmentManager?.beginTransaction()
+/*
+
+        // 1. Exit for Previous Fragment
+        val exitFade = Fade()
+        exitFade.duration = MainActivity.FADE_DEFAULT_TIME
+        previousFragment?.exitTransition = exitFade
+*/
+
+        // 2. Shared Elements Transition
+        val enterTransitionSet = TransitionSet()
+        enterTransitionSet.addTransition(
+            TransitionInflater.from(MainActivity.mActivity).inflateTransition(android.R.transition.move)
+        )
+        enterTransitionSet.duration = MainActivity.MOVE_DEFAULT_TIME
+        enterTransitionSet.startDelay = MainActivity.FADE_DEFAULT_TIME
+        nextFragment.sharedElementEnterTransition = enterTransitionSet
+/*
+        // 3. Enter Transition for New Fragment
+        val enterFade = Fade()
+        enterFade.startDelay = MainActivity.MOVE_DEFAULT_TIME + MainActivity.FADE_DEFAULT_TIME
+        enterFade.duration = MainActivity.FADE_DEFAULT_TIME
+        nextFragment.enterTransition = enterFade
+        */
+        fragmentTransaction?.addSharedElement(imgIcon, imgIcon.transitionName)
+        fragmentTransaction?.replace(R.id.fragment_container, nextFragment)
+        fragmentTransaction?.commitAllowingStateLoss()
     }
 
 
